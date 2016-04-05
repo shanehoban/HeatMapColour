@@ -3,12 +3,11 @@
 		this.map = array;
 		this.size = Object.keys(array).length || array.length;
 		this.colour = (this.colourNameToHex(colour)) ? this.colourNameToHex(colour) : colour;
-		this.opacity = this.calculateOpacity(this.size);
-		this.rgba = this.convertHex(this.colour, this.opacity);
+		this.rgba = this.convertHex(this.colour, this.calculateOpacity(this.size));
 	}
 
 	HeatMapColour.prototype.calculateOpacity = function(numberOfItems) {
-		var baseOpacity = 80; // 70% that is
+		var baseOpacity = 70; // 0% that is
 		return parseInt((baseOpacity/numberOfItems*10)*100, 10)/100;
 	};
 
@@ -22,7 +21,7 @@
 	    var r = parseInt(hex.substring(0,2), 16);
 	    var g = parseInt(hex.substring(2,4), 16);
 	    var b = parseInt(hex.substring(4,6), 16);
-	    opacity = (parseInt(opacity*100, 10)/10000)/5;
+	    opacity = parseInt(((parseInt(opacity*100, 10)/10000)*0.65)*100, 10)/100;
 
 	    return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
 	}
